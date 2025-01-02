@@ -1,0 +1,13 @@
+<!-- only create an alert if the success msg exists -->
+<% if (success.length) { %>
+  <div class="alert alert-success alert-dismissible fade show custom-flash-msg col-6 offset-3" role="alert">
+      <i class="bi bi-check-circle-fill me-2"></i><%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+<% if (error.length) { %>
+  <div class="alert alert-danger alert-dismissible fade show custom-flash-msg col-6 offset-3" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i><%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>

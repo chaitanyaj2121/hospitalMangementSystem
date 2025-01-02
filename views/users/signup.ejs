@@ -1,0 +1,121 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+    <div class="row mt-3">
+        <h1 class="col-6 offset-3">Sign Up on HMS</h1>
+        <div class="col-6 offset-3">
+            <form id="signupForm" novalidate method="post" action="/signup" class="needs-validation">
+                <!-- Username -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter a username.</div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter a password.</div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number:</label>
+                    <input type="text" name="phone" id="phone" class="form-control" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter a phone number.</div>
+                </div>
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Image URL:</label>
+                    <input type="url" name="image[url]" id="imageUrl" class="form-control"
+                        placeholder="https://example.com/your-image.jpg" required />
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please provide a valid image URL.</div>
+                </div>
+
+                <!-- Hidden input for the default filename -->
+                <input type="hidden" name="image[filename]" value="Doctorimage" />
+
+
+                <!-- User Type -->
+                <div class="mb-3">
+                    <label for="userType" class="form-label">Are you a Doctor or a Patient?</label>
+                    <select class="form-select" id="userType" name="userType" required>
+                        <option value="" disabled selected>Select...</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Patient">Patient</option>
+                    </select>
+                    <div class="invalid-feedback">Please select your role.</div>
+                </div>
+
+                <!-- Dynamic Fields -->
+                <div id="dynamicFields"></div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("userType").addEventListener("change", function () {
+            const userType = this.value;
+
+            // Populate dynamic fields
+            const dynamicFields = document.getElementById("dynamicFields");
+            dynamicFields.innerHTML = ""; // Clear previous fields
+
+            if (userType === "Doctor") {
+                dynamicFields.innerHTML = `
+                <div class="mb-3">
+                    <label for="education" class="form-label">Education Background:</label>
+                    <input type="text" name="education" id="education" class="form-control" required>
+                    <div class="invalid-feedback">Please provide your education background.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="hospitalName" class="form-label">Hospital Name:</label>
+                    <input type="text" name="hospitalName" id="hospitalName" class="form-control" required>
+                    <div class="invalid-feedback">Please provide the hospital name.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Hospital Address:</label>
+                    <input type="text" name="address" id="address" class="form-control" required>
+                    <div class="invalid-feedback">Please provide your address.</div>
+                </div>`;
+            } else if (userType === "Patient") {
+                dynamicFields.innerHTML = `
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" name="address" id="address" class="form-control" required>
+                    <div class="invalid-feedback">Please provide your address.</div>
+                </div>`;
+            }
+        });
+
+        // Enable Bootstrap's client-side validation
+        (function () {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>

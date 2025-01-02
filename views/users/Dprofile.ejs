@@ -1,0 +1,32 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container mt-5">
+  <div class="card mx-auto" style="width: 24rem;">
+    <img src="<%= doctor.image.url %>" class="card-img-top rounded-circle mx-auto mt-3" alt="Doctor Profile Image" style="width: 150px; height: 150px;">
+    <div class="card-body text-center">
+      <h4 class="card-title"><%= doctor.username %></h4>
+      <h6 class="text-muted">Doctor</h6>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <strong>Email:</strong> <%= doctor.email %>
+      </li>
+      <li class="list-group-item">
+        <strong>Phone:</strong> <%= doctor.phone %>
+      </li>
+      <li class="list-group-item">
+        <strong>Education:</strong> <%= doctor.education %>
+      </li>
+      <li class="list-group-item">
+        <strong>Hospital Name:</strong> <%= doctor.hospitalName %>
+      </li>
+      <li class="list-group-item">
+        <strong>Address:</strong> <%= doctor.address %>
+      </li>
+    </ul>
+    <div class="card-body text-center">
+      <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
+      <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+  </div>
+</div>

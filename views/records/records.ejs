@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container my-5">
+    <div class="row gy-4">
+        <% let recordFound = false; %> <!-- Flag to check if any record is found -->
+        <% for (let record of records) { %>
+            <% if (record.owner == id) { %>
+                <div class="col-md-4">
+                    <div class="card patient-record-card shadow">
+                        <img class="card-img-top patient-record-img" src="<%= record.image.url %>" alt="<%= record.title %>">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary patient-record-title">
+                                <%= record.title %>
+                            </h5>
+                            <p class="card-text text-muted patient-record-description">
+                                <%= record.description %>
+                            </p>
+                            <p class="card-text patient-record-location">
+                                <strong>Location:</strong> <%= record.location %>
+                            </p>
+                            <p class="card-text patient-record-country">
+                                <strong>Country:</strong> <%= record.country %>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a href="/records/update/<%=record.id%>" class="btn btn-outline-primary btn-sm">Update</a>
+                                <form action="/records/delete/<%=record.id%>?_method=DELETE" method="post" class="m-0">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% recordFound = true; %> <!-- Set the flag to true -->
+            <% } %>
+        <% } %>
+
+        <% if (!recordFound) { %>
+            <div class="alert alert-warning text-center w-100" role="alert">
+                No health records found.
+            </div>
+        <% } %>
+    </div>
+</div>

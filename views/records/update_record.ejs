@@ -1,0 +1,49 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Update Record</h1>
+    <form action="/records/update/<%= record._id %>" method="POST" class="custom-form">
+
+        <!-- Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control custom-input" id="title" name="title" value="<%= record.title %>" required>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control custom-input" id="description" name="description" rows="3" required><%= record.description %></textarea>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control custom-input" id="price" name="price" value="<%= record.price %>" required>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control custom-input" id="location" name="location" value="<%= record.location %>" required>
+        </div>
+
+        <!-- Country -->
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control custom-input" id="country" name="country" value="<%= record.country %>" required>
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <img src="<%= record.image.url %>" alt="Record Image" class="d-block mb-2 img-thumbnail" style="max-width: 200px;">
+            <input type="text" class="form-control custom-input" id="image" name="image" value="<%= record.image.url %>">
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg w-50">Update Record</button>
+            <a href="/records" class="btn btn-secondary btn-lg w-50">Cancel</a>
+        </div>
+    </form>
+</div>

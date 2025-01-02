@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div id="map"></div>
+<div style="margin-top: 10px; text-align: center;">
+    <!-- Get Directions Button -->
+    <a 
+        href="https://www.google.com/maps/dir/?api=1&destination=<%= data.latitude %>,<%= data.longitude %>" 
+        target="_blank" 
+        style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">
+        Get Directions
+    </a>
+</div>
+
+<script>
+    // Coordinates from the passed data
+    const coordinates = [
+        parseFloat(<%= data.longitude %>), 
+        parseFloat(<%= data.latitude %>)
+    ];
+
+    // Mapbox Access Token
+    mapboxgl.accessToken = 'pk.eyJ1IjoieWFzaHJham5ldGtlIiwiYSI6ImNtM3d0cnd0YzE1ZWEybnM3a3BpYTcydjgifQ.EnjlB_yRgQz7t2JMHad-7Q';
+
+    // Initialize the Map
+    const map = new mapboxgl.Map({
+        container: 'map', // Container ID
+        style: 'mapbox://styles/mapbox/streets-v12', // Map Style
+        center: coordinates, // Center of the map [lng, lat]
+        zoom: 12 // Initial zoom level
+    });
+
+    // Add Navigation Controls (+/- buttons)
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    // Add Marker
+    const marker = new mapboxgl.Marker({ color: "red" })
+        .setLngLat(coordinates)
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // Add a popup
+            .setHTML(`<h3>Destination</h3><p>Coordinates: ${coordinates[1]}, ${coordinates[0]}</p>`))
+        .addTo(map);
+
+    // Open Popup on Marker
+    marker.addTo(map);
+</script>

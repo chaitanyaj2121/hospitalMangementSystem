@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container mt-5">
+    <div class="record-form-container">
+        <h2>Add Record</h2>
+        <form action="/records/new" method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" id="title" name="title" class="form-control record-input-title" placeholder="Enter the record title" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control record-input-description" rows="4" placeholder="Enter the description" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="url" class="form-label">Image URL</label>
+                <input type="url" id="url" name="url" class="form-control record-input-url" placeholder="Enter the image URL">
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Cost?</label>
+                <input type="number" id="price" name="cost" class="form-control record-input-cost" placeholder="Enter the price" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" id="location" name="location" class="form-control record-input-location" placeholder="Enter the location" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" id="country" name="country" class="form-control record-input-country" placeholder="Enter the country" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 record-submit-button">Submit</button>
+        </form>
+    </div>
+</div>

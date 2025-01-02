@@ -1,0 +1,30 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3>User Profile</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <!-- Profile Image -->
+                        <div class="mb-4">
+                            <img src="<%= user.image.url %>" alt="<%= user.username %>" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                        </div>
+                        <!-- User Details -->
+                        <h4 class="mb-2 text-uppercase text-primary"><%= user.username %></h4>
+                        <p><strong>Email:</strong> <%= user.email %></p>
+                        <p><strong>Phone:</strong> <%= user.phone %></p>
+                        <p><strong>Address:</strong> <%= user.address %></p>
+                        <p><strong>User Type:</strong> <%= user.userType %></p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/users/edit" class="btn btn-warning">Edit Profile</a>
+                        <a href="/logout" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

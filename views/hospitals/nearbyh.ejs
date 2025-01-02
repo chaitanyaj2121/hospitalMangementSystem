@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate.ejs") %>   
+
+
+<body class="bg-light">
+    <div class="container my-5">
+        <h1 class="text-center mb-4 text-primary">Nearby Hospitals</h1>
+
+        <ul class="hospital-list list-unstyled">
+            <% hospitals.forEach(hospital => { %>      
+            <form action="/nearbyh/getlocation" method="POST" class="d-inline">
+                <input type="hidden" name="latitude" value="<%= hospital.center[1] %>">
+                <input type="hidden" name="longitude" value="<%= hospital.center[0] %>">
+                <button type="submit" class="btn btn-light w-100 mb-3 shadow-sm p-3 text-start" style="border: 1px solid #ddd; border-radius: 10px; cursor: pointer;">
+                    <li class="hospital">
+                        <h2 class="h5 text-dark"><%= hospital.text %></h2>
+                        <p class="mb-1"><strong>Address:</strong> <%= hospital.place_name %></p>
+                        <p class="mb-1"><strong>Category:</strong> <%= hospital.properties.category %></p>
+                        <% if (hospital.properties.foursquare) { %>
+                            <p class="mb-1">
+                                <strong>Foursquare:</strong>
+                                <a href="https://foursquare.com/v/<%= hospital.properties.foursquare %>" target="_blank" class="text-decoration-underline text-primary">
+                                    View on Foursquare
+                                </a>
+                            </p>
+                        <% } %>
+                        <% if (hospital.properties.wikidata) { %>
+                            <p class="mb-1">
+                                <strong>Wikidata:</strong>
+                                <a href="https://www.wikidata.org/wiki/<%= hospital.properties.wikidata %>" target="_blank" class="text-decoration-underline text-primary">
+                                    View on Wikidata
+                                </a>
+                            </p>
+                        <% } %>
+                    </li>
+                </button>
+            </form>
+            <% }) %>
+        </ul>
+    </div>
+</body>
