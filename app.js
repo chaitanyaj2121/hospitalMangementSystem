@@ -14,6 +14,7 @@ app.use(methodOverride("_method"));
 const ejsMate = require("ejs-mate");
 app.engine("ejs", ejsMate);
 
+require('dotenv').config();
 
 // Basic setup for the authentication
 const passport = require('passport');
@@ -204,7 +205,7 @@ app.get("/nearbyhospitals", async (req, res) => {
   const axios = require('axios');
 
   const getNearbyHospitals = async (latitude, longitude) => {
-    const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFzaHJham5ldGtlIiwiYSI6ImNtM3d0cnd0YzE1ZWEybnM3a3BpYTcydjgifQ.EnjlB_yRgQz7t2JMHad-7Q"; // Replace with your actual Mapbox Access Token
+    const MAPBOX_ACCESS_TOKEN =process.env.MAPBOX_ACCESS_TOKEN; // Replace with your actual Mapbox Access Token
 
     // Mapbox Geocoding API URL to search for hospitals near the given location
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/hospital.json?proximity=${longitude},${latitude}&types=poi&access_token=${MAPBOX_ACCESS_TOKEN}`;
@@ -215,10 +216,13 @@ app.get("/nearbyhospitals", async (req, res) => {
 
       // Extract the list of hospitals from the response
       const hospitals = response.data.features;
+      console.log("Response Data:", response.data);
 
       // Check if there are hospitals found
       if (hospitals.length === 0) {
         console.log("No nearby hospitals found.");
+        req.flash("error","No nearby Hospitals Found");
+        res.redirect("/");
         return;
       }
 
@@ -244,7 +248,7 @@ app.get("/nearbyhospitals", async (req, res) => {
   };
 
   // Replace with your actual latitude and longitude values
-  getNearbyHospitals(18.516726, 73.856255); // Example: Mumbai coordinates
+  getNearbyHospitals(19.0760, 72.8777); // Example: Mumbai coordinates
 
 
 })
